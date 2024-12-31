@@ -1,0 +1,11 @@
+buld
+docker build -t python-http-server .
+
+Run the Container
+docker run -d -p 5500:5500 --name python-server python-http-server
+
+Stop the Container
+docker stop python-server
+
+Restart the Container
+docker start python-server
