@@ -1,0 +1,157 @@
+jankins
+java17
+maven
+docker desktop
+docker hub
+-----------------------------------------
+maven chack mvn -v
+----------------------------------------
+pull----------
+
+git init
+
+git remote add origin https://github.com/GI-GUNIT/studentmanagement.git
+
+git remote add origin https://github.com/GI-GUNIT/studentmanagementfront.git
+
+git pull origin main
+---------------------------------------
+
+push----------
+
+git init
+
+git remote add origin https://github.com/GI-GUNIT/studentmanagement.git
+
+git remote add origin https://github.com/GI-GUNIT/studentmanagementfront.git
+
+git add . (all) or git add filename (spacific)
+
+git commit -m "Your commit message"
+
+git push origin main   <----- #1
+------------------------------------
+
+
+overid
+
+If the branch does not exist on the remote:
+
+git push --set-upstream origin branch_name  <----- #1
+
+git push --force <----- #1
+
+
+Fetch all the branches from the remote repository:
+git fetch origin
+
+List All Available Branches
+git branch -a
+
+Switch to the ginort Branch
+	If the branch ginort exists locally:
+
+		git checkout ginort
+
+	If the branch is only on the remote, create a local branch tracking it:
+		
+		git checkout -b ginort origin/ginort
+
+
+
+Pull the latest changes from the ginort branch:
+	git pull origin ginort
+
+
+-----------------------------------------------------------------------------
+
+
+jenkins---
+
+
+credintial --
+
+gaganhashentha
+
+gaganx2ACb32F
+
+dockerhub_id
+
+
+
+
+....................
+backend
+....................
+
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/GI-GUNIT/studentmanagement.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    // Run Maven clean and install
+                    bat 'mvn clean install'
+                }
+            }
+        }
+        stage('Docker build and push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub_id') {
+                        bat "docker build -t gaganhashentha/studentmanagementdoc:1.0 ."
+                        bat "docker push gaganhashentha/studentmanagementdoc:1.0"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+-----------------------
+front end
+-----------------------
+
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/GI-GUNIT/studentmanagementfront'
+            }
+        }
+
+        stage('Docker build and push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub_id') {
+                        bat "docker build -t gaganhashentha/studentmanagementfrontdoc:1.0 ."
+                        bat "docker push gaganhashentha/studentmanagementfrontdoc:1.0"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
