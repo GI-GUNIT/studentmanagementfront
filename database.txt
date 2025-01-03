@@ -30,6 +30,16 @@ git add . (all) or git add filename (spacific)
 git commit -m "Your commit message"
 
 git push origin main   <----- #1
+
+git branch -m master main
+git push origin main
+
+Pull Changes: If you’re pushing to an existing remote branch for the first time, fetch any updates first:
+
+bash
+Copy code
+git pull origin main
+git push origin main
 ------------------------------------
 
 
